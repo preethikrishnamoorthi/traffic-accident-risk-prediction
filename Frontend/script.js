@@ -101,6 +101,40 @@ document.getElementById("predictionForm").addEventListener("submit", async funct
             <h3>${message}</h3>
             <p>Risk Score: ${result.risk_score}%</p>
         `;
+        let total = parseInt(localStorage.getItem("predictionCount") || 0);
+            total++;
+            localStorage.setItem("predictionCount", total);
+            let riskKey = "";
+
+if (result.risk === "High Risk") {
+    riskKey = "highCount";
+}
+else if (result.risk === "Medium Risk") {
+    riskKey = "mediumCount";
+}
+else {
+    riskKey = "lowCount";
+}
+
+let count = parseInt(localStorage.getItem(riskKey) || 0);
+count++;
+localStorage.setItem(riskKey, count);
+
+    }
+
+    catch (error) {
+
+        document.getElementById("result").innerHTML = `
+            <div class="result-icon">❌</div>
+            <p>Unable to connect to the prediction server.</p>
+        `;
+
+        console.error(error);
+
+    }
+
+});
+
 
     }
 
