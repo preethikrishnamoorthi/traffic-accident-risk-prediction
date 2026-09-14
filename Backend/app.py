@@ -30,8 +30,13 @@ print("Accident model loaded successfully!")
 
 @app.route("/")
 def home():
-    return open(os.path.join(FRONTEND_DIR, "index.html"), encoding="utf-8").read()
-    @app.route("/<path:filename>")
+    return open(
+        os.path.join(FRONTEND_DIR, "index.html"),
+        encoding="utf-8"
+    ).read()
+
+
+@app.route("/<path:filename>")
 def frontend_files(filename):
     return app.send_static_file(filename)
 
