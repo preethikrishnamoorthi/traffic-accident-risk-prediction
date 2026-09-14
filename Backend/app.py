@@ -4,6 +4,9 @@ import joblib
 import os
 import pandas as pd
 
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+FRONTEND_DIR = os.path.join(BASE_DIR, "Frontend")
+
 app = Flask(__name__)
 CORS(app)
 
