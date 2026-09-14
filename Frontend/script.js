@@ -169,3 +169,4 @@ function setCurrentTime() {
 }
 
 setCurrentTime();
+setInterval(setCurrentTime, 60000);
