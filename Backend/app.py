@@ -27,7 +27,7 @@ print("Accident model loaded successfully!")
 
 @app.route("/")
 def home():
-    return "Traffic Accident Prediction API is running!"
+    return app.send_static_file("index.html")
 
 
 # --------------------------------------------------
