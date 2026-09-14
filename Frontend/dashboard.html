@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Accident Risk Dashboard</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f7fb;
+            color: #222;
+        }
+
+        /* Navigation */
+
+        nav {
+            background: #111827;
+            padding: 18px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav h2 {
+            color: white;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 25px;
+            font-size: 16px;
+        }
+
+        nav a:hover {
+            color: #60a5fa;
+        }
+
+        /* Header */
+
+        .header {
+            text-align: center;
+            padding: 40px 20px 25px;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+        }
+
+        /* Cards */
+
+        .cards {
+            width: 85%;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .card h3 {
+            color: #555;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .card h2 {
+            font-size: 28px;
+        }
+
+        /* Risk section */
+
+        .risk-section {
+            width: 85%;
+            margin: 35px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .risk-section h2 {
+            margin-bottom: 25px;
+        }
+
+        .risk {
+            display: flex;
+            justify-content: space-between;
+            margin: 18px 0;
+            font-size: 18px;
+        }
+
+        .progress {
+            height: 12px;
+            background: #e5e7eb;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+
+        .bar {
+            height: 100%;
+        }
+
+        .low {
+            width: 0%;
+            background: #22c55e;
+        }
+
+        .medium {
+            width: 0%;
+            background: #f59e0b;
+        }
+
+        .high {
+            width: 0%;
+            background: #ef4444;
+        }
+
+        /* Features */
+
+        .features {
+            width: 85%;
+            margin: 35px auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .feature {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .feature h3 {
+            margin-bottom: 10px;
+        }
+
+        .feature p {
+            color: #666;
+            line-height: 1.5;
+        }
+
+        /* Button */
+
+        .button-area {
+            text-align: center;
+            margin: 40px;
+        }
+
+        .predict-btn {
+            background: #2563eb;
+            color: white;
+            padding: 14px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .predict-btn:hover {
+            background: #1d4ed8;
+        }
+
+        /* Responsive */
+
+        @media (max-width: 900px) {
+
+            .cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            nav {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav a {
+                margin-left: 10px;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+
+    <nav>
+
+        <h2>🚦 Accident Risk Prediction</h2>
+
+        <div>
+
+            <a href="index.html">Home</a>
+
+            <a href="index.html#prediction">
+                Prediction
+            </a>
+
+            <a href="dashboard.html">
+                Dashboard
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- Header -->
+
+    <div class="header">
+
+        <h1>📊 Accident Risk Dashboard</h1>
+
+        <p>
+            Monitor accident prediction performance and risk analysis
+        </p>
+
+    </div>
+
+
+    <!-- Statistics -->
+
+    <div class="cards">
+
+        <div class="card">
+
+            <h3>Total Accident Records</h3>
+
+            <h2>1,504,150</h2>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>Risk Detection</h3>
+
+            <h2>ML</h2>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>Model Accuracy</h3>
+
+            <h2>85.37%</h2>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>Total Predictions</h3>
+
+            <h2 id="predictionCount">
+                0
+            </h2>
+
+        </div>
+
+    </div>
+
+
+    <!-- Risk Analysis -->
+
+    <div class="risk-section">
+
+        <h2>Risk Analysis</h2>
+
+
+        <!-- Low Risk -->
+
+        <div class="risk">
+
+            <span>🟢 Low Risk</span>
+
+            <span id="lowPercent">
+                0%
+            </span>
+
+        </div>
+
+        <div class="progress">
+
+            <div
+                class="bar low"
+                id="lowBar">
+            </div>
+
+        </div>
+
+
+        <!-- Medium Risk -->
+
+        <div class="risk">
+
+            <span>🟠 Medium Risk</span>
+
+            <span id="mediumPercent">
+                0%
+            </span>
+
+        </div>
+
+        <div class="progress">
+
+            <div
+                class="bar medium"
+                id="mediumBar">
+            </div>
+
+        </div>
+
+
+        <!-- High Risk -->
+
+        <div class="risk">
+
+            <span>🔴 High Risk</span>
+
+            <span id="highPercent">
+                0%
+            </span>
+
+        </div>
+
+        <div class="progress">
+
+            <div
+                class="bar high"
+                id="highBar">
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Features -->
+
+<div class="features">
+
+    <div class="feature">
+
+        <h3>🤖 Machine Learning</h3>
+
+        <p>
+            Random Forest is used to predict
+            accident severity and risk levels.
+        </p>
+
+    </div>
+
+
+    <div class="feature">
+
+        <h3>🌦️ Weather Analysis</h3>
+
+        <p>
+            Weather conditions are considered
+            during accident risk prediction.
+        </p>
+
+    </div>
+
+
+    <div class="feature">
+
+        <h3>🚗 Traffic Analysis</h3>
+
+        <p>
+            Traffic conditions and vehicle
+            information are used for risk analysis.
+        </p>
+
+    </div>
+
+
+    <div class="feature">
+
+        <h3>🛣️ Road Condition Analysis</h3>
+
+        <p>
+            Road surface conditions are considered
+            during accident risk prediction.
+        </p>
+
+    </div>
+
+</div>
+
+    <!-- Prediction Button -->
+
+    <div class="button-area">
+
+        <a
+            href="index.html"
+            class="predict-btn">
+
+            🚦 Make New Prediction
+
+        </a>
+
+    </div>
+
+
+    <!-- Dashboard JavaScript -->
+
+    <script>
+
+        // Load prediction count
+
+        let total =
+            localStorage.getItem("predictionCount") || 0;
+
+        document.getElementById(
+            "predictionCount"
+        ).innerText = total;
+
+
+        // Load risk counts
+
+        let low =
+            parseInt(
+                localStorage.getItem("lowCount") || 0
+            );
+
+        let medium =
+            parseInt(
+                localStorage.getItem("mediumCount") || 0
+            );
+
+        let high =
+            parseInt(
+                localStorage.getItem("highCount") || 0
+            );
+
+
+        // Calculate total
+
+        let riskTotal =
+            low + medium + high;
+
+
+        if (riskTotal > 0) {
+
+            let lowPercent =
+                Math.round(
+                    (low / riskTotal) * 100
+                );
+
+            let mediumPercent =
+                Math.round(
+                    (medium / riskTotal) * 100
+                );
+
+            let highPercent =
+                Math.round(
+                    (high / riskTotal) * 100
+                );
+
+
+            // Display percentages
+
+            document.getElementById(
+                "lowPercent"
+            ).innerText =
+                lowPercent + "%";
+
+
+            document.getElementById(
+                "mediumPercent"
+            ).innerText =
+                mediumPercent + "%";
+
+
+            document.getElementById(
+                "highPercent"
+            ).innerText =
+                highPercent + "%";
+
+
+            // Update bars
+
+            document.getElementById(
+                "lowBar"
+            ).style.width =
+                lowPercent + "%";
+
+
+            document.getElementById(
+                "mediumBar"
+            ).style.width =
+                mediumPercent + "%";
+
+
+            document.getElementById(
+                "highBar"
+            ).style.width =
+                highPercent + "%";
+
+        }
+
+    </script>
+
+</body>
+
+</html>
