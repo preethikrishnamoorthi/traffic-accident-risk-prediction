@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 import joblib
 import os
@@ -7,7 +7,11 @@ import pandas as pd
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FRONTEND_DIR = os.path.join(BASE_DIR, "Frontend")
 
-app = Flask(__name__)
+app = Flask(
+    __name__,
+    static_folder=FRONTEND_DIR,
+    static_url_path=""
+)
 CORS(app)
 
 # --------------------------------------------------
@@ -30,15 +34,12 @@ print("Accident model loaded successfully!")
 
 @app.route("/")
 def home():
-    return open(
-        os.path.join(FRONTEND_DIR, "index.html"),
-        encoding="utf-8"
-    ).read()
+    return send_from_directory(FRONTEND_DIR, "index.html")
 
 
 @app.route("/<path:filename>")
 def frontend_files(filename):
-    return app.send_static_file(filename)
+    return send_from_directory(FRONTEND_DIR, filename)
 
 
 # --------------------------------------------------
