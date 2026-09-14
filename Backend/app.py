@@ -27,7 +27,7 @@ print("Accident model loaded successfully!")
 
 @app.route("/")
 def home():
-    return app.send_static_file("index.html")
+    return open(os.path.join(FRONTEND_DIR, "index.html"), encoding="utf-8").read()
 
 
 # --------------------------------------------------
