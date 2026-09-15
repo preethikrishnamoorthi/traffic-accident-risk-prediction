@@ -167,6 +167,5 @@ function setCurrentTime() {
     document.getElementById("time").value =
         `${hours}:${minutes}`;
 }
-
 setCurrentTime();
 setInterval(setCurrentTime, 60000);
